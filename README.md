@@ -12,10 +12,10 @@
 | last_name_kana     | string | null: false                        |
 | first_name_kana    | string | null: false                        |
 | birthday           | date   | null: false                        |
-| order              | references | null: false, foreign_key: true |
 
 ### Association
 
+- has_many :items
 - has_many :comments
 - has_many :orders
 
@@ -32,10 +32,10 @@
 | shipping_days_id   | integer    | null: false                    |
 | price              | integer    | null: false                    |
 | user               | references | null: false, foreign_key: true |
-| order              | references | null: false, foreign_key: true |
 
 ### Association
 
+- belongs_to :user
 - has_many :comments
 - has_one  :order
 
@@ -75,10 +75,8 @@
 | address         | string     | null: false                    |
 | building        | string     |                                |
 | tel             | string     | null: false                    |
-| user            | references | null: false, foreign_key: true |
-| item            | references | null: false, foreign_key: true |
+| order           | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user
 - belongs_to :order
