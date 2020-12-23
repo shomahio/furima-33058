@@ -10,14 +10,14 @@
 | last_name       | string | null: false |
 | first_name      | string | null: false |
 | last_name_kana  | string | null: false |
-| first_name/kana | string | null: false |
+| first_name_kana | string | null: false |
 | birthday        | date   | null: false |
 
 ### Association
 
 - has_many :items
 - has_many :comments
-- has_one  :order
+- has_many :orders
 
 ## items テーブル
 
@@ -25,17 +25,17 @@
 | --------------- | ---------- | ------------------------------ |
 | item_name       | string     | null: false                    |
 | explanation     | text       | null: false                    |
-| category        | string     | null: false                    |
-| state           | string     | null: false                    |
-| charge          | string     | null: false                    |
-| shipping_place  | string     | null: false                    |
-| shipping_days   | date       | null: false                    |
+| category        | integer    | null: false                    |
+| state           | integer    | null: false                    |
+| charge          | integer    | null: false                    |
+| shipping_place  | integer    | null: false                    |
+| shipping_days   | integer    | null: false                    |
 | item_price      | integer    | null: false, foreign_key: true |
 | user            | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :users
+- belongs_to :user
 - has_many :comments
 - has_one  :order
 
@@ -49,10 +49,22 @@
 
 ### Association
 
-- belongs_to :users
-- belongs_to :items
+- belongs_to :user
+- belongs_to :item
 
 ## orders テーブル
+
+| Column          | Type       | Options                        |
+| ----------------| ---------- | ------------------------------ |
+| user            | references | null: false, foreign_key: true |
+| item            | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- belongs_to :item
+
+## adresses テーブル
 
 | Column          | Type       | Options                        |
 | ----------------| ---------- | ------------------------------ |
@@ -61,11 +73,11 @@
 | municipalities  | string     | null: false                    |
 | address         | string     | null: false                    |
 | building        | string     |                                |
-| tel             | integer    | null: false                    |
+| tel             | string     | null: false                    |
 | user            | references | null: false, foreign_key: true |
 | item            | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :users
-- belongs_to :items
+- belongs_to :user
+- belongs_to :item
