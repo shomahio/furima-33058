@@ -72,7 +72,7 @@
 | postal_code     | string     | null: false                    |
 | prefecture_id   | integer    | null: false                    |
 | municipalities  | string     | null: false                    |
-| address         | string     | null: false                    |
+| address_id      | integer    | null: false                    |
 | building        | string     |                                |
 | tel             | string     | null: false                    |
 | order           | references | null: false, foreign_key: true |
