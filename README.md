@@ -29,7 +29,7 @@
 | state_id           | integer    | null: false                    |
 | charge_id          | integer    | null: false                    |
 | shipping_place_id  | integer    | null: false                    |
-| shipping_days_id   | integer    | null: false                    |
+| shipping_day_id    | integer    | null: false                    |
 | price              | integer    | null: false                    |
 | user               | references | null: false, foreign_key: true |
 
@@ -70,7 +70,7 @@
 | Column          | Type       | Options                        |
 | --------------- | ---------- | ------------------------------ |
 | postal_code     | string     | null: false                    |
-| prefectures_id  | integer    | null: false                    |
+| prefecture_id   | integer    | null: false                    |
 | municipalities  | string     | null: false                    |
 | address         | string     | null: false                    |
 | building        | string     |                                |
