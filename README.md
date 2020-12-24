@@ -26,7 +26,7 @@
 | name               | string     | null: false                    |
 | explanation        | text       | null: false                    |
 | category_id        | integer    | null: false                    |
-| state_id           | integer    | null: false                    |
+| prefecture_id      | integer    | null: false                    |
 | charge_id          | integer    | null: false                    |
 | shipping_place_id  | integer    | null: false                    |
 | shipping_day_id    | integer    | null: false                    |
@@ -72,7 +72,7 @@
 | postal_code     | string     | null: false                    |
 | prefecture_id   | integer    | null: false                    |
 | municipalities  | string     | null: false                    |
-| address_id      | integer    | null: false                    |
+| address         | string     | null: false                    |
 | building        | string     |                                |
 | tel             | string     | null: false                    |
 | order           | references | null: false, foreign_key: true |
