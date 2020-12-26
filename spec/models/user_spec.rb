@@ -10,10 +10,6 @@ RSpec.describe User, type: :model do
       it 'nicknameとemail、passwordとpassword_confirmationとlast_name、first_nameとlast_name_kana、first_name_kanaとbirthdayが存在すれば登録できる' do
         expect(@user).to be_valid
       end
-      it 'passwordとpassword_confirmationが6文字以上であれば登録できる' do
-        @user.nickname = "aaaaa1"
-        expect(@user).to be_valid
-      end
     end
     context '新規登録できないとき' do
       it 'nicknameが空では登録できない' do
@@ -25,6 +21,11 @@ RSpec.describe User, type: :model do
         @user.email = ""
         @user.valid?
         expect(@user.errors.full_messages).to include("Email can't be blank")
+      end
+      it 'emailの中に＠が含まれないと登録できない' do
+        @user.email = "testtest"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email is invalid")
       end
       it '重複したemailが存在する場合登録できない' do
         @user.save
@@ -48,6 +49,18 @@ RSpec.describe User, type: :model do
         @user.password_confirmation = "00000"
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
+      end
+      it 'passwordが英語のみでは登録できない' do
+        @user.password = "aaaaaaa"
+        @user.password_confirmation = "aaaaaaa"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password 半角文字で英数どちらも最低１文字は使用してください")
+      end
+      it 'passwordが全角では登録できない' do
+        @user.password = "００００００"
+        @user.password_confirmation = "００００００"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password 半角文字で英数どちらも最低１文字は使用してください")
       end
       it 'last_nameが空では登録できない' do
         @user.last_name = ""
