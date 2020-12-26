@@ -12,5 +12,5 @@ class Item < ApplicationRecord
   validates :charge,        numericality: { other_than: 1 } 
   validates :prefecture,    numericality: { other_than: 1 } 
   validates :shipping_day,  numericality: { other_than: 1 } 
-  validates :hipping_place, numericality: { other_than: 1 } 
+  validates :shipping_place, numericality: { other_than: 1 } 
 end
