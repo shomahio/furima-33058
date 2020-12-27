@@ -7,10 +7,17 @@ class Item < ApplicationRecord
   belongs_to :shipping_place
   has_one_attached :image
 
-  validates :name, :explanation,  presence: true
-  validates :category_id,       numericality: { other_than: 1 } 
-  validates :charge_id,         numericality: { other_than: 1 } 
-  validates :prefecture_id,     numericality: { other_than: 1 } 
-  validates :shipping_day_id,   numericality: { other_than: 1 } 
-  validates :shipping_place_id, numericality: { other_than: 1 } 
+  with_options presence: true do
+    validates :image
+    validates :name
+    validates :explanation
+    with_options numericality: { other_than: 1 } do
+    validates :category_id
+    validates :charge_id
+    validates :prefecture_id
+    validates :shipping_day_id
+    validates :shipping_place_id
+    end
+    validates :price,         format: { with: /\A[0-9]+\z/, message: '半角文字で入力してください' }, length: { in: 300..9999999 }
+  end
 end
