@@ -18,6 +18,7 @@ class Item < ApplicationRecord
     validates :shipping_day_id
     validates :shipping_place_id
     end
-    validates :price,         format: { with: /\A[0-9]+\z/, message: '半角文字で入力してください' }, length: { in: 300..9999999 }
+    validates :price,         format: { with: /\A[0-9]+\z/, message: '半角文字で入力してください' }, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
+
   end
 end
