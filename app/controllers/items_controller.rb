@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :move_to_index, except: [:index]
   def index
+    @items = Item.all
   end
 
   def new
@@ -9,6 +10,7 @@ class ItemsController < ApplicationController
 
   def create
      @item = Item.new(item_params)
+     binding.pry
      if @item.save
        redirect_to root_path
      else 
@@ -18,7 +20,7 @@ class ItemsController < ApplicationController
 
   private
   def item_params
-    params.require(:item).permit(:image, :name, :explanation, :category_id, :prefecture_id, :charge_id, :shipping_place_id, :shipping_day_id, :price)
+    params.require(:item).permit(:image, :name, :explanation, :category_id, :prefecture_id, :charge_id, :shipping_place_id, :shipping_day_id, :price).merge(user_id: current_user.id)
   end
 
   def move_to_index
