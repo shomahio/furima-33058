@@ -13,7 +13,7 @@ RSpec.describe Item, type: :model do
     end
     context "商品が投稿できない場合" do
       it "画像が空では投稿できない" do
-        @item.image = ""
+        @item.image = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Image can't be blank")
       end
@@ -30,27 +30,27 @@ RSpec.describe Item, type: :model do
       it "カテゴリーが空では投稿できない" do
         @item.category_id = ""
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category_id can't be blank")
+        expect(@item.errors.full_messages).to include("Category can't be blank")
       end
       it "商品の状態が空では投稿できない" do
         @item.charge_id = ""
         @item.valid?
-        expect(@item.errors.full_messages).to include("Charge_id_id can't be blank")
+        expect(@item.errors.full_messages).to include("Charge can't be blank")
       end
       it "配送料の負担が空では投稿できない" do
         @item.shipping_place_id = ""
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping_place_id can't be blank")
+        expect(@item.errors.full_messages).to include("Shipping place can't be blank")
       end
       it "発送元の地域が空では投稿できない" do
         @item.prefecture_id = ""
         @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecture_id can't be blank")
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
       it "発送までの日数が空では投稿できない" do
         @item.shipping_day_id = ""
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping_day_id can't be blank")
+        expect(@item.errors.full_messages).to include("Shipping day can't be blank")
       end
       it "価格が空では投稿できない" do
         @item.price = ""
@@ -60,7 +60,42 @@ RSpec.describe Item, type: :model do
       it "価格が全角では投稿できない" do
         @item.price = "１０００００"
         @item.valid?
-        expect(@item.errors.full_messages).to include("半角文字を使用してください")
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it "価格が文字では投稿できない" do
+        @item.price = "aaaaa"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it "価格が300~9999999以外では投稿できない" do
+        @item.price = 100
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
+      end
+      it "カテゴリーが1では登録できない" do
+        @item.category_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
+      end
+      it "商品の状態が1では登録できない" do
+        @item.charge_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Charge must be other than 1")
+      end
+      it "発送料の負担が1では登録できない" do
+        @item.shipping_place_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping place must be other than 1")
+      end
+      it "発送元の地域が1では登録できない" do
+        @item.prefecture_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
+      end
+      it "発送までの日数が1では登録できない" do
+        @item.shipping_day_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping day must be other than 1")
       end
       it "ユーザーが紐付いていなければ投稿できない" do
         @item.user = nil

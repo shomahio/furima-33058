@@ -19,5 +19,7 @@ class User < ApplicationRecord
            validates :birthday
            validates :password,         format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i, length: { minimum: 6 }, message: '半角文字で英数どちらも最低１文字は使用してください' }
          end
+  
+         has_many :items
 end
 
