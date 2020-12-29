@@ -34,11 +34,6 @@ class ItemsController < ApplicationController
       end
   end
 
-  def destroy
-    @item.destroy
-    redirect_to action: :index
-  end
-
   private
   def item_params
     params.require(:item).permit(:image, :name, :explanation, :category_id, :prefecture_id, :charge_id, :shipping_place_id, :shipping_day_id, :price).merge(user_id: current_user.id)
