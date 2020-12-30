@@ -27,11 +27,19 @@ class ItemsController < ApplicationController
 
   
   def update
-      if @item.update(item_params)
-        redirect_to root_path
-      else
+    if @item.update(item_params)
+      redirect_to root_path
+    else
         render :edit
       end
+  end
+
+  def destroy
+    if @item.destroy
+      redirect_to action: :index
+    else
+      render :show
+    end
   end
 
   private
