@@ -12,10 +12,8 @@ class OrderAddress
   end
 
   def save
-    # 住所の情報を保存
-    Address.create(postal_code: postal_code, prefecture_id: prefecture_id, municipalities: municipalities, address: address, building: building)
-    # 寄付金の情報を保存
-    Order.create(item_id: item_id, user_id: user_id)
+    order = Order.create(item_id: item_id, user_id: user_id)
+    Address.create(postal_code: postal_code, prefecture_id: prefecture_id, municipalities: municipalities, address: address, building: building, tel: tel, order_id: order.id)
   end
 
 end
