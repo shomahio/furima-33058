@@ -14,6 +14,8 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order).to be_valid
       end
       it "buildingは空でも保存できること" do
+        @order.building = ""
+        expect(@order).to be_valid
       end
     end
     context "商品が購入できない場合" do
