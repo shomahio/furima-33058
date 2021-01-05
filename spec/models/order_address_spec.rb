@@ -22,6 +22,16 @@ RSpec.describe OrderAddress, type: :model do
         @order.valid?
         expect(@order.errors.full_messages).to include("Token can't be blank")
       end
+      it "user_idが空では購入できない" do
+        @order.user_id = ""
+        @order.valid?
+        expect(@order.errors.full_messages).to include("User can't be blank")
+      end
+      it "item_idが空では購入できない" do
+        @order.item_id = ""
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Item can't be blank")
+      end
       it "postal_codeが空だと保存できないこと" do
         @order.postal_code = ""
         @order.valid?
@@ -64,6 +74,11 @@ RSpec.describe OrderAddress, type: :model do
       end
       it "telが12桁以上では保存できないこと" do
         @order.tel = "0901234567899"
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Tel is invalid")
+      end
+      it "telが英数混合では登録できないことでは保存できないこと" do
+        @order.tel = "0901234567a"
         @order.valid?
         expect(@order.errors.full_messages).to include("Tel is invalid")
       end
