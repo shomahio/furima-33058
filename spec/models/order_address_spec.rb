@@ -54,6 +54,11 @@ RSpec.describe OrderAddress, type: :model do
         @order.valid?
         expect(@order.errors.full_messages).to include("Prefecture can't be blank")
       end
+      it "prefectureが1では登録できない" do
+        @order.prefecture_id = 1
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Prefecture must be other than 1")
+      end
       it "municipalitiesは空では保存できないこと" do
         @order.municipalities = ""
         @order.valid?
